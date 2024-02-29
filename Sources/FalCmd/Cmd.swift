@@ -12,6 +12,7 @@ struct Cmd: AsyncParsableCommand {
             TextToImage.self,
             ImageToImage.self,
             FaceToImage.self,
+            FaceSwapToImage.self,
         ]
     )
 }
@@ -28,6 +29,9 @@ struct Options: ParsableArguments {
     
     @Option(help: "The image to use.")
     var imageURL = ""
+    
+    @Option(help: "The image to swap.")
+    var swapImageURL = ""
     
     @Argument(help: "You prompt")
     var prompt = ""
@@ -69,6 +73,19 @@ struct FaceToImage: AsyncParsableCommand {
         let client = FalClient(token: options.token)
         let payload = FaceToImageRequest(faceImageURL: options.imageURL, prompt: options.prompt)
         let resp = try await client.faceToImage(payload, model: options.model)
+        print(resp)
+    }
+}
+
+struct FaceSwapToImage: AsyncParsableCommand {
+    static var configuration = CommandConfiguration(abstract: "Returns face swapped image")
+    
+    @OptionGroup var options: Options
+    
+    func run() async throws {
+        let client = FalClient(token: options.token)
+        let payload = FaceSwapToImageRequest(baseImageURL: options.imageURL, swapImageURL: options.swapImageURL)
+        let resp = try await client.faceSwapToImage(payload, model: options.model)
         print(resp)
     }
 }

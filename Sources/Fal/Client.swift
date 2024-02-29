@@ -59,6 +59,17 @@ public final class FalClient {
         return try decoder.decode(FaceToImageResponse.self, from: data)
     }
     
+    public func faceSwapToImage(_ payload: FaceSwapToImageRequest, model: String) async throws -> FaceSwapToImageResponse {
+        var req = makeRequest(path: model, method: "POST")
+        req.httpBody = try JSONEncoder().encode(payload)
+        
+        let (data, resp) = try await URLSession.shared.data(for: req)
+        if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
+            throw URLError(.badServerResponse)
+        }
+        return try decoder.decode(FaceSwapToImageResponse.self, from: data)
+    }
+    
     // Private
     
     private func makeRequest(path: String, method: String) -> URLRequest {

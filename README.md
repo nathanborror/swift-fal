@@ -11,3 +11,4 @@ An easy way to use the [Fal](https://fal.ai) platform in Swift.
 - [InstantID](https://fal.ai/models/instantid) — faceToImage
 - [Face Retoucher](https://fal.ai/models/retoucher) — imageToImage
 - [Illusion Diffusion](https://fal.ai/models/illusion-diffusion)
+- [Swap Face](https://fal.ai/models/face-swap)
