@@ -22,10 +22,10 @@ public final class FalClient {
         self.init(configuration: .init(token: token))
     }
     
-    // Image Gen
+    // Text to Image
     
-    public func textToImage(_ payload: TextToImageRequest) async throws -> TextToImageResponse {
-        var req = makeRequest(path: "fast-sdxl", method: "POST")
+    public func textToImage(_ payload: TextToImageRequest, model: String) async throws -> TextToImageResponse {
+        var req = makeRequest(path: model, method: "POST")
         req.httpBody = try JSONEncoder().encode(payload)
         
         let (data, resp) = try await URLSession.shared.data(for: req)
@@ -33,6 +33,30 @@ public final class FalClient {
             throw URLError(.badServerResponse)
         }
         return try decoder.decode(TextToImageResponse.self, from: data)
+    }
+    
+    // Image to Image
+    
+    public func imageToImage(_ payload: ImageToImageRequest, model: String) async throws -> ImageToImageResponse {
+        var req = makeRequest(path: model, method: "POST")
+        req.httpBody = try JSONEncoder().encode(payload)
+        
+        let (data, resp) = try await URLSession.shared.data(for: req)
+        if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
+            throw URLError(.badServerResponse)
+        }
+        return try decoder.decode(ImageToImageResponse.self, from: data)
+    }
+    
+    public func faceToImage(_ payload: FaceToImageRequest, model: String) async throws -> FaceToImageResponse {
+        var req = makeRequest(path: model, method: "POST")
+        req.httpBody = try JSONEncoder().encode(payload)
+        
+        let (data, resp) = try await URLSession.shared.data(for: req)
+        if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
+            throw URLError(.badServerResponse)
+        }
+        return try decoder.decode(FaceToImageResponse.self, from: data)
     }
     
     // Private

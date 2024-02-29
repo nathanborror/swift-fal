@@ -5,32 +5,47 @@ public struct TextToImageRequest: Codable {
     public var negativePrompt: String?
     public var imageSize: ImageSize?
     public var numInferenceSteps: Int?
-    public var seed: Int?
+    public var seed: UInt64?
     public var enableDeepCache: Bool?
-    public var guidanceScale: Double?
+    public var guidanceScale: Float?
     public var syncMode: Bool?
     public var numImages: Int?
     public var loras: LoraWeight?
     public var enableSafetyChecker: Bool?
     public var expandPrompt: Bool?
+    public var modelName: String?
+    public var modelArchitecture: ModelArchitecture?
+    public var scheduler: Scheduler?
+    public var clipSkip: Int?
     
     public enum ImageSize: String, Codable {
-        case square_hd
-        case square
-        case portrait_4_3
-        case portrait_16_9
-        case landscape_4_3
-        case landscape_16_9
+        case square_hd, square
+        case portrait_4_3, portrait_16_9
+        case landscape_4_3, landscape_16_9
     }
     
     public struct LoraWeight: Codable {
         public var path: String
-        public var scale: Double
+        public var scale: Float
         
-        public init(path: String, scale: Double) {
+        public init(path: String, scale: Float) {
             self.path = path
             self.scale = scale
         }
+    }
+    
+    public enum ModelArchitecture: String, Codable {
+        case sd, sdxl
+    }
+    
+    public enum Scheduler: String, Codable {
+        case dpm_2m = "DPM++ 2M"
+        case dpm_2m_karras = "DPM++ 2M Karras"
+        case dpm_2m_sde = "DPM++ 2M SDE"
+        case dpm_2m_sde_karras = "DPM++ 2M SDE Karras"
+        case euler = "Euler"
+        case euler_a = "Euler A"
+        case lcm = "LCM"
     }
     
     enum CodingKeys: String, CodingKey {
@@ -46,11 +61,17 @@ public struct TextToImageRequest: Codable {
         case loras
         case enableSafetyChecker = "enable_safety_checker"
         case expandPrompt = "expand_prompt"
+        case modelName = "model_name"
+        case modelArchitecture = "model_architecture"
+        case scheduler = "scheduler"
+        case clipSkip = "clip_skip"
     }
     
-    public init(prompt: String, negativePrompt: String? = nil, imageSize: ImageSize? = nil, numInferenceSteps: Int? = nil, 
-         seed: Int? = nil, enableDeepCache: Bool? = nil, guidanceScale: Double? = nil, syncMode: Bool? = nil,
-         numImages: Int? = nil, loras: LoraWeight? = nil, enableSafetyChecker: Bool? = nil, expandPrompt: Bool? = nil) {
+    public init(prompt: String, negativePrompt: String? = nil, imageSize: ImageSize? = nil,
+                numInferenceSteps: Int? = nil, seed: UInt64? = nil, enableDeepCache: Bool? = nil,
+                guidanceScale: Float? = nil, syncMode: Bool? = nil, numImages: Int? = nil, loras: LoraWeight? = nil,
+                enableSafetyChecker: Bool? = nil, expandPrompt: Bool? = nil, modelName: String? = nil,
+                modelArchitecture: ModelArchitecture? = nil, scheduler: Scheduler? = nil, clipSkip: Int? = nil) {
         self.prompt = prompt
         self.negativePrompt = negativePrompt
         self.imageSize = imageSize
@@ -63,27 +84,17 @@ public struct TextToImageRequest: Codable {
         self.loras = loras
         self.enableSafetyChecker = enableSafetyChecker
         self.expandPrompt = expandPrompt
+        self.modelName = modelName
+        self.modelArchitecture = modelArchitecture
+        self.scheduler = scheduler
+        self.clipSkip = clipSkip
     }
 }
 
 public struct TextToImageResponse: Codable {
     public let images: [Image]
-    public let seed: Int?
+    public let seed: UInt64?
     public let hasNSFWConcepts: [Bool]?
-    
-    public struct Image: Codable {
-        public let url: String
-        public let width: Int
-        public let height: Int
-        public let contentType: String
-        
-        enum CodingKeys: String, CodingKey {
-            case url
-            case width
-            case height
-            case contentType = "content_type"
-        }
-    }
     
     enum CodingKeys: String, CodingKey {
         case images
