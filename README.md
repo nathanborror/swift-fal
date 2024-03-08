@@ -10,5 +10,16 @@ An easy way to use the [Fal](https://fal.ai) platform in Swift.
 - [Stable Diffusion Turbo (v1.5/XL)](https://fal.ai/models/fast-turbo-diffusion-turbo) — textToImage
 - [InstantID](https://fal.ai/models/instantid) — faceToImage
 - [Face Retoucher](https://fal.ai/models/retoucher) — imageToImage
-- [Illusion Diffusion](https://fal.ai/models/illusion-diffusion)
-- [Swap Face](https://fal.ai/models/face-swap)
+- [Illusion Diffusion](https://fal.ai/models/illusion-diffusion) — imageToImage
+- [Swap Face](https://fal.ai/models/face-swap) — faceSwapToImage
+
+### Models
+
+- Text-to-Image
+    - fast-sdxl
+    - stable-cascade
+    - lora
+    - fast-turbo-diffusion
+- Image-to-Image
+    - retoucher
+    - illusion-diffusion
