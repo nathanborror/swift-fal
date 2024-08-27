@@ -6,8 +6,8 @@ public final class FalClient {
         public let host: URL
         public let token: String
         
-        public init(host: URL = URL(string: "https://fal.run/fal-ai")!, token: String) {
-            self.host = host
+        public init(host: URL? = nil, token: String) {
+            self.host = host ?? Defaults.apiHost
             self.token = token
         }
     }
@@ -16,10 +16,6 @@ public final class FalClient {
     
     public init(configuration: Configuration) {
         self.configuration = configuration
-    }
-    
-    public convenience init(token: String) {
-        self.init(configuration: .init(token: token))
     }
     
     // Text to Image
