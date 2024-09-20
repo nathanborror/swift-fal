@@ -18,9 +18,18 @@ public final class FalClient {
         self.configuration = configuration
     }
     
+    // Models
+    
+    public func models() async throws -> ModelListResponse {
+        try checkAuthentication()
+        return .init(models: Defaults.models)
+    }
+    
     // Text to Image
     
     public func textToImage(_ payload: TextToImageRequest, model: String) async throws -> TextToImageResponse {
+        try checkAuthentication()
+        
         var req = makeRequest(path: model, method: "POST")
         req.httpBody = try JSONEncoder().encode(payload)
         
@@ -34,6 +43,8 @@ public final class FalClient {
     // Image to Image
     
     public func imageToImage(_ payload: ImageToImageRequest, model: String) async throws -> ImageToImageResponse {
+        try checkAuthentication()
+        
         var req = makeRequest(path: model, method: "POST")
         req.httpBody = try JSONEncoder().encode(payload)
         
@@ -45,6 +56,8 @@ public final class FalClient {
     }
     
     public func faceToImage(_ payload: FaceToImageRequest, model: String) async throws -> FaceToImageResponse {
+        try checkAuthentication()
+        
         var req = makeRequest(path: model, method: "POST")
         req.httpBody = try JSONEncoder().encode(payload)
         
@@ -56,6 +69,8 @@ public final class FalClient {
     }
     
     public func faceSwapToImage(_ payload: FaceSwapToImageRequest, model: String) async throws -> FaceSwapToImageResponse {
+        try checkAuthentication()
+        
         var req = makeRequest(path: model, method: "POST")
         req.httpBody = try JSONEncoder().encode(payload)
         
@@ -67,6 +82,12 @@ public final class FalClient {
     }
     
     // Private
+    
+    private func checkAuthentication() throws {
+        if configuration.token.isEmpty {
+            throw URLError(.userAuthenticationRequired)
+        }
+    }
     
     private func makeRequest(path: String, method: String) -> URLRequest {
         var req = URLRequest(url: configuration.host.appending(path: path))

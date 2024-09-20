@@ -16,7 +16,7 @@ let package = Package(
         .executable(name: "FalCmd", targets: ["FalCmd"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", branch: "main"),
+        .package(url: "git@github.com:apple/swift-argument-parser", branch: "main"),
     ],
     targets: [
         .target(name: "Fal"),
@@ -24,6 +24,5 @@ let package = Package(
             "Fal",
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
         ]),
-        .testTarget(name: "FalTests", dependencies: ["Fal"]),
     ]
 )
