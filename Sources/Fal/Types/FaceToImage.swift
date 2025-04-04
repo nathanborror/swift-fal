@@ -1,18 +1,18 @@
 import Foundation
 
 public struct FaceToImageRequest: Codable {
-    public var faceImageURL: String
+    public var face_image_url: String
     public var prompt: String
     public var style: Style?
-    public var negativePrompt: String?
-    public var numInferenceSteps: Int?
-    public var guidanceScale: Float?
-    public var enableLcm: Bool?
-    public var controlnetSelection: ControlnetSelection?
-    public var controlnetSelectionScale: Float?
-    public var ipAdapterScale: Float?
-    public var identityControlnetConditioningScale: Float?
-    public var enhanceFaceRegion: Bool?
+    public var negative_prompt: String?
+    public var num_inference_steps: Int?
+    public var guidance_scale: Float?
+    public var enable_lcm: Bool?
+    public var controlnet_selection: ControlnetSelection?
+    public var controlnet_selection_scale: Float?
+    public var ip_adapter_scale: Float?
+    public var identity_controlnet_conditioning_scale: Float?
+    public var enhance_face_region: Bool?
     public var seed: UInt64?
     
     public enum Style: String, Codable {
@@ -32,39 +32,23 @@ public struct FaceToImageRequest: Codable {
         case pose, canny, depth
     }
     
-    enum CodingKeys: String, CodingKey {
-        case faceImageURL = "face_image_url"
-        case prompt
-        case style
-        case negativePrompt = "negative_prompt"
-        case numInferenceSteps = "num_inference_steps"
-        case guidanceScale = "guidance_scale"
-        case enableLcm = "enable_lcm"
-        case controlnetSelection = "controlnet_selection"
-        case controlnetSelectionScale = "controlnet_selection_scale"
-        case ipAdapterScale = "ip_adapter_scale"
-        case identityControlnetConditioningScale = "identity_controlnet_conditioning_scale"
-        case enhanceFaceRegion = "enhance_face_region"
-        case seed
-    }
-    
-    public init(faceImageURL: String, prompt: String, style: Style? = nil, negativePrompt: String? = nil,
-                numInferenceSteps: Int? = nil, guidanceScale: Float? = nil, enableLcm: Bool? = nil,
-                controlnetSelection: ControlnetSelection? = nil, controlnetSelectionScale: Float? = nil,
-                ipAdapterScale: Float? = nil, identityControlnetConditioningScale: Float? = nil,
-                enhanceFaceRegion: Bool? = nil, seed: UInt64? = nil) {
-        self.faceImageURL = faceImageURL
+    public init(face_image_url: String, prompt: String, style: Style? = nil, negative_prompt: String? = nil,
+                num_inference_steps: Int? = nil, guidance_scale: Float? = nil, enable_lcm: Bool? = nil,
+                controlnet_selection: ControlnetSelection? = nil, controlnet_selection_scale: Float? = nil,
+                ip_adapter_scale: Float? = nil, identity_controlnet_conditioning_scale: Float? = nil,
+                enhance_face_region: Bool? = nil, seed: UInt64? = nil) {
+        self.face_image_url = face_image_url
         self.prompt = prompt
         self.style = style
-        self.negativePrompt = negativePrompt
-        self.numInferenceSteps = numInferenceSteps
-        self.guidanceScale = guidanceScale
-        self.enableLcm = enableLcm
-        self.controlnetSelection = controlnetSelection
-        self.controlnetSelectionScale = controlnetSelectionScale
-        self.ipAdapterScale = ipAdapterScale
-        self.identityControlnetConditioningScale = identityControlnetConditioningScale
-        self.enhanceFaceRegion = enhanceFaceRegion
+        self.negative_prompt = negative_prompt
+        self.num_inference_steps = num_inference_steps
+        self.guidance_scale = guidance_scale
+        self.enable_lcm = enable_lcm
+        self.controlnet_selection = controlnet_selection
+        self.controlnet_selection_scale = controlnet_selection_scale
+        self.ip_adapter_scale = ip_adapter_scale
+        self.identity_controlnet_conditioning_scale = identity_controlnet_conditioning_scale
+        self.enhance_face_region = enhance_face_region
         self.seed = seed
     }
 }

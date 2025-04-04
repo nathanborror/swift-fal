@@ -1,17 +1,12 @@
 import Foundation
 
 public struct FaceSwapToImageRequest: Codable {
-    public var baseImageURL: String
-    public var swapImageURL: String
+    public var base_image_url: String
+    public var swap_image_url: String
     
-    enum CodingKeys: String, CodingKey {
-        case baseImageURL = "base_image_url"
-        case swapImageURL = "swap_image_url"
-    }
-    
-    public init(baseImageURL: String, swapImageURL: String) {
-        self.baseImageURL = baseImageURL
-        self.swapImageURL = swapImageURL
+    public init(base_image_url: String, swap_image_url: String) {
+        self.base_image_url = base_image_url
+        self.swap_image_url = swap_image_url
     }
 }
 

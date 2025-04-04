@@ -1,47 +1,26 @@
 import Foundation
 
 public struct ImageToImageRequest: Codable {
-    public var imageURL: String
+    public var image_url: String
     public var prompt: String
     public var scale: Float?
     public var creativity: Float?
     public var detail: Float?
-    public var shapePreservation: Float?
-    public var negativePrompt: String?
+    public var shape_preservation: Float?
+    public var negative_prompt: String?
     public var seed: UInt64?
-    public var numInferenceSteps: Int?
-    public var guidanceScale: Float?
-    public var enableSafetyChecks: Bool?
-    public var skipCCSR: Bool?
-    public var overrideSizeLimits: Bool?
-    
-    public var controlnetConditioningScale: Float?
-    public var controlGuidanceStart: Float?
-    public var controlGuidanceEnd: Float?
+    public var num_inference_steps: Int?
+    public var guidance_scale: Float?
+    public var enable_safety_checks: Bool?
+    public var skip_ccsr: Bool?
+    public var override_size_limits: Bool?
+
+    public var controlnet_conditioning_scale: Float?
+    public var control_guidance_start: Float?
+    public var control_guidance_end: Float?
     public var scheduler: Scheduler?
-    public var imageSize: ImageSize?
-    
-    enum CodingKeys: String, CodingKey {
-        case imageURL = "image_url"
-        case prompt
-        case scale
-        case creativity
-        case detail
-        case shapePreservation = "shape_preservation"
-        case negativePrompt = "negative_prompt"
-        case seed
-        case numInferenceSteps = "num_inference_steps"
-        case guidanceScale = "guidance_scale"
-        case enableSafetyChecks = "enable_safety_checks"
-        case skipCCSR = "skip_ccsr"
-        case overrideSizeLimits = "override_size_limits"
-        case controlnetConditioningScale = "controlnet_conditioning_scale"
-        case controlGuidanceStart = "control_guidance_start"
-        case controlGuidanceEnd = "control_guidance_end"
-        case scheduler
-        case imageSize = "image_size"
-    }
-    
+    public var image_size: ImageSize?
+
     public enum Scheduler: String, Codable {
         case dpm_karras_sde = "DPM++ Karras SDE"
         case euler = "Euler"
@@ -53,30 +32,30 @@ public struct ImageToImageRequest: Codable {
         case landscape_4_3, landscape_16_9
     }
     
-    public init(imageURL: String, prompt: String, scale: Float? = nil, creativity: Float? = nil, detail: Float? = nil, 
-                shapePreservation: Float? = nil, negativePrompt: String? = nil, seed: UInt64? = nil,
-                numInferenceSteps: Int? = nil, guidanceScale: Float? = nil, enableSafetyChecks: Bool? = nil,
-                skipCCSR: Bool? = nil, overrideSizeLimits: Bool? = nil, controlnetConditioningScale: Float? = nil,
-                controlGuidanceStart: Float? = nil, controlGuidanceEnd: Float? = nil, scheduler: Scheduler? = nil,
-                imageSize: ImageSize? = nil) {
-        self.imageURL = imageURL
+    public init(image_url: String, prompt: String, scale: Float? = nil, creativity: Float? = nil, detail: Float? = nil,
+                shape_preservation: Float? = nil, negative_prompt: String? = nil, seed: UInt64? = nil,
+                num_inference_steps: Int? = nil, guidance_scale: Float? = nil, enable_safety_checks: Bool? = nil,
+                skip_ccsr: Bool? = nil, override_size_limits: Bool? = nil, controlnet_conditioning_scale: Float? = nil,
+                control_guidance_start: Float? = nil, control_guidance_end: Float? = nil, scheduler: Scheduler? = nil,
+                image_size: ImageSize? = nil) {
+        self.image_url = image_url
         self.prompt = prompt
         self.scale = scale
         self.creativity = creativity
         self.detail = detail
-        self.shapePreservation = shapePreservation
-        self.negativePrompt = negativePrompt
+        self.shape_preservation = shape_preservation
+        self.negative_prompt = negative_prompt
         self.seed = seed
-        self.numInferenceSteps = numInferenceSteps
-        self.guidanceScale = guidanceScale
-        self.enableSafetyChecks = enableSafetyChecks
-        self.skipCCSR = skipCCSR
-        self.overrideSizeLimits = overrideSizeLimits
-        self.controlnetConditioningScale = controlnetConditioningScale
-        self.controlGuidanceStart = controlGuidanceStart
-        self.controlGuidanceEnd = controlGuidanceEnd
+        self.num_inference_steps = num_inference_steps
+        self.guidance_scale = guidance_scale
+        self.enable_safety_checks = enable_safety_checks
+        self.skip_ccsr = skip_ccsr
+        self.override_size_limits = override_size_limits
+        self.controlnet_conditioning_scale = controlnet_conditioning_scale
+        self.control_guidance_start = control_guidance_start
+        self.control_guidance_end = control_guidance_end
         self.scheduler = scheduler
-        self.imageSize = imageSize
+        self.image_size = image_size
     }
 }
 
