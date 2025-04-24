@@ -14,5 +14,8 @@ public struct Defaults {
         .init(id: "flux-pro", name: "Flux (pro)", owner: "fal"),
         .init(id: "flux-pro/v1.1-ultra", name: "Flux (pro ultra)", owner: "fal"),
         .init(id: "ideogram/v2", name: "Ideogram (v2)", owner: "fal"),
+        .init(id: "stable-cascade", name: "Stable Cascade", owner: "fal"),
+        .init(id: "dia-tts", name: "Dia TTS", owner: "fal"),
+        .init(id: "dia-tts/voice-clone", name: "Dia TTS (Voice Clone)", owner: "fal"),
     ]
 }

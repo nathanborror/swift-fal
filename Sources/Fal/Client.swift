@@ -80,7 +80,22 @@ public final class FalClient {
         }
         return try decoder.decode(FaceSwapToImageResponse.self, from: data)
     }
-    
+
+    // Text to Speech
+
+    public func textToSpeech(_ payload: TextToSpeechRequest, model: String) async throws -> TextToSpeechResponse {
+        try checkAuthentication()
+
+        var req = makeRequest(path: model, method: "POST")
+        req.httpBody = try JSONEncoder().encode(payload)
+
+        let (data, resp) = try await URLSession.shared.data(for: req)
+        if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
+            throw URLError(.badServerResponse)
+        }
+        return try decoder.decode(TextToSpeechResponse.self, from: data)
+    }
+
     // Private
     
     private func checkAuthentication() throws {
