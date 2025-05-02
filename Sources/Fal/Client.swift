@@ -9,10 +9,15 @@ public final class Client {
 
     internal(set) public var session: URLSession
 
+    private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
+
     public init(session: URLSession = URLSession(configuration: .default), host: URL? = nil, apiKey: String) {
         self.session = session
         self.host = host ?? Self.defaultHost
         self.apiKey = apiKey
+        self.encoder = JSONEncoder()
+        self.decoder = JSONDecoder()
     }
 
     public enum Error: Swift.Error, CustomStringConvertible {
@@ -60,7 +65,7 @@ extension Client {
         try checkAuthentication()
 
         var req = makeRequest(path: model, method: "POST")
-        req.httpBody = try JSONEncoder().encode(payload)
+        req.httpBody = try encoder.encode(payload)
 
         let (data, resp) = try await session.data(for: req)
         if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -78,7 +83,7 @@ extension Client {
         try checkAuthentication()
 
         var req = makeRequest(path: model, method: "POST")
-        req.httpBody = try JSONEncoder().encode(payload)
+        req.httpBody = try encoder.encode(payload)
 
         let (data, resp) = try await session.data(for: req)
         if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -91,7 +96,7 @@ extension Client {
         try checkAuthentication()
 
         var req = makeRequest(path: model, method: "POST")
-        req.httpBody = try JSONEncoder().encode(payload)
+        req.httpBody = try encoder.encode(payload)
 
         let (data, resp) = try await session.data(for: req)
         if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -104,7 +109,7 @@ extension Client {
         try checkAuthentication()
 
         var req = makeRequest(path: model, method: "POST")
-        req.httpBody = try JSONEncoder().encode(payload)
+        req.httpBody = try encoder.encode(payload)
 
         let (data, resp) = try await session.data(for: req)
         if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -122,7 +127,7 @@ extension Client {
         try checkAuthentication()
 
         var req = makeRequest(path: model, method: "POST")
-        req.httpBody = try JSONEncoder().encode(payload)
+        req.httpBody = try encoder.encode(payload)
 
         let (data, resp) = try await session.data(for: req)
         if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
@@ -148,10 +153,5 @@ extension Client {
         req.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         req.setValue("Key \(apiKey)", forHTTPHeaderField: "Authorization")
         return req
-    }
-    
-    private var decoder: JSONDecoder {
-        let decoder = JSONDecoder()
-        return decoder
     }
 }
