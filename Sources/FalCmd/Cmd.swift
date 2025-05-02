@@ -43,7 +43,7 @@ struct TextToImage: AsyncParsableCommand {
     @OptionGroup var options: Options
     
     func run() async throws {
-        let client = FalClient(configuration: .init(token: options.token))
+        let client = Client(apiKey: options.token)
         let modelName = options.modelName.isEmpty ? nil : options.modelName
         let payload = TextToImageRequest(prompt: options.prompt, model_name: modelName)
         let resp = try await client.textToImage(payload, model: options.model)
@@ -57,7 +57,7 @@ struct ImageToImage: AsyncParsableCommand {
     @OptionGroup var options: Options
     
     func run() async throws {
-        let client = FalClient(configuration: .init(token: options.token))
+        let client = Client(apiKey: options.token)
         let payload = ImageToImageRequest(image_url: options.imageURL, prompt: options.prompt)
         let resp = try await client.imageToImage(payload, model: options.model)
         print(resp)
@@ -70,7 +70,7 @@ struct FaceToImage: AsyncParsableCommand {
     @OptionGroup var options: Options
     
     func run() async throws {
-        let client = FalClient(configuration: .init(token: options.token))
+        let client = Client(apiKey: options.token)
         let payload = FaceToImageRequest(face_image_url: options.imageURL, prompt: options.prompt)
         let resp = try await client.faceToImage(payload, model: options.model)
         print(resp)
@@ -83,7 +83,7 @@ struct FaceSwapToImage: AsyncParsableCommand {
     @OptionGroup var options: Options
     
     func run() async throws {
-        let client = FalClient(configuration: .init(token: options.token))
+        let client = Client(apiKey: options.token)
         let payload = FaceSwapToImageRequest(base_image_url: options.imageURL, swap_image_url: options.swapImageURL)
         let resp = try await client.faceSwapToImage(payload, model: options.model)
         print(resp)
