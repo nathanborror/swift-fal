@@ -135,12 +135,25 @@ extension Client {
         }
         return try decoder.decode(TextToSpeechResponse.self, from: data)
     }
+
+    public func voiceClone(_ payload: VoiceCloneRequest, model: String) async throws -> VoiceCloneResponse {
+        try checkAuthentication()
+
+        var req = makeRequest(path: model, method: "POST")
+        req.httpBody = try encoder.encode(payload)
+
+        let (data, resp) = try await URLSession.shared.data(for: req)
+        if let httpResponse = resp as? HTTPURLResponse, httpResponse.statusCode != 200 {
+            throw URLError(.badServerResponse)
+        }
+        return try decoder.decode(VoiceCloneResponse.self, from: data)
+    }
 }
 
 // MARK: - Private
 
 extension Client {
-    
+
     private func checkAuthentication() throws {
         if apiKey.isEmpty {
             throw Error.requestError("Missing API key")
